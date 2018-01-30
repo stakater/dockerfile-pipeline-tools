@@ -72,8 +72,6 @@ RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
     && cp /tmp/landscaper /bin/landscaper \
     && rm -rf /tmp/*
 
-ADD bootstrap.sh .
+ADD bootstrap.sh /
 
-RUN chmod +x bootstrap.sh
-
-CMD [ "bootstap.sh", "" ]
+ENTRYPOINT ["/bootstrap.sh"]
