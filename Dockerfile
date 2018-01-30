@@ -80,5 +80,11 @@ RUN curl -L ${LANDSCAPER_URL} | tar zxv -C /tmp \
     && cp /tmp/landscaper /bin/landscaper \
     && rm -rf /tmp/*
 
+RUN git config --global user.email "stakater@gmail.com"
+RUN git config --global user.name "stakater-user"
+
+RUN mkdir -p /root/.ssh/ && \
+    ssh-keyscan github.com > /root/.ssh/known_hosts
+
 # default command: display Ansible version
 CMD [ "ansible-playbook", "--version" ]
