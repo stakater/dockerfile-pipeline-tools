@@ -2,6 +2,7 @@ FROM stakater/base-alpine:3.7
 
 MAINTAINER Stakater <stakater@gmail.com>
 
+# Install ansible, boto, aws-cli, and some handy tools
 RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
     apk --update add sudo                                         && \
     \
@@ -15,6 +16,14 @@ RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
     \
     echo "===> Installing Ansible..."  && \
     pip install ansible                && \
+    \
+    \
+    echo "===> Installing Boto..."  && \
+    pip install boto                && \
+    \
+    \
+    echo "===> Installing Aws-Cli..."  && \
+    pip install awscli                && \
     \
     \
     echo "===> Installing handy tools (not absolutely required)..."  && \
@@ -31,9 +40,7 @@ RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
     mkdir -p /etc/ansible                        && \
     echo 'localhost' > /etc/ansible/hosts
 
-
-RUN pip install boto
-
+# Install kops, kubectl, and terraform
 RUN mkdir -p /aws && \
     apk -Uuv add git openssh groff less python py-pip curl jq unzip && \
     curl -LO --show-error https://github.com/kubernetes/kops/releases/download/1.8.0/kops-linux-amd64 && \
@@ -46,10 +53,10 @@ RUN mkdir -p /aws && \
     unzip terraform_0.11.1_linux_amd64.zip && \
     mv terraform /usr/local/bin/ && \
     rm terraform_0.11.1_linux_amd64.zip && \
-    pip install awscli boto && \
     apk --purge -v del py-pip && \
     rm /var/cache/apk/*
 
+# Install helm, and landscaper
 ARG HELM_VERSION=v2.7.2
 ARG HELM_FILENAME=helm-${HELM_VERSION}-linux-amd64.tar.gz
 ARG HELM_URL=http://storage.googleapis.com/kubernetes-helm/${HELM_FILENAME}
@@ -58,33 +65,15 @@ ARG LANDSCAPER_VERSION=1.0.12
 ARG LANDSCAPER_FILENAME=landscaper-${LANDSCAPER_VERSION}-linux-amd64.tar.gz
 ARG LANDSCAPER_URL=https://github.com/Eneco/landscaper/releases/download/${LANDSCAPER_VERSION}/${LANDSCAPER_FILENAME}
 
-RUN mkdir -p /aws && \
-    apk -Uuv add git openssh groff less python py-pip curl jq && \
-    curl -LO --show-error https://github.com/kubernetes/kops/releases/download/1.8.0/kops-linux-amd64 && \
-    mv kops-linux-amd64 /usr/local/bin/kops && \
-    chmod +x /usr/local/bin/kops && \
-    curl -LO --show-error https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl && \
-    mv kubectl /usr/local/bin/kubectl && \
-    chmod +x /usr/local/bin/kubectl && \
-    pip install awscli boto && \
-    apk --purge -v del py-pip && \
-    rm /var/cache/apk/*
-
-# Install helm
 RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
     && cp /tmp/linux-amd64/helm /bin/helm \
-    && rm -rf /tmp/*
-
-# Install landscaper
-RUN curl -L ${LANDSCAPER_URL} | tar zxv -C /tmp \
+    && rm -rf /tmp/* \
+    && curl -L ${LANDSCAPER_URL} | tar zxv -C /tmp \
     && cp /tmp/landscaper /bin/landscaper \
     && rm -rf /tmp/*
 
-RUN git config --global user.email "stakater@gmail.com"
-RUN git config --global user.name "stakater-user"
+ADD bootstrap.sh .
 
-RUN mkdir -p /root/.ssh/ && \
-    ssh-keyscan github.com > /root/.ssh/known_hosts
+RUN chmod +x bootstrap.sh
 
-# default command: display Ansible version
-CMD [ "ansible-playbook", "--version" ]
+CMD [ "bootstap.sh", "" ]
