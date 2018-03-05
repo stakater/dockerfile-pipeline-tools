@@ -1,4 +1,7 @@
-FROM stakater/base-alpine:3.7
+FROM docker:17.10 as docker
+FROM golang:1.9.3-alpine3.7
+
+COPY --from=docker /usr/local/bin/docker /usr/local/bin/
 
 MAINTAINER Stakater <stakater@gmail.com>
 
@@ -42,7 +45,7 @@ RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
 
 # Install kops, kubectl, and terraform
 RUN mkdir -p /aws && \
-    apk -Uuv add git openssh groff less python py-pip curl jq unzip && \
+    apk -Uuv add git bash openssh groff less python py-pip curl jq unzip && \
     curl -LO --show-error https://github.com/kubernetes/kops/releases/download/1.8.1/kops-linux-amd64 && \
     mv kops-linux-amd64 /usr/local/bin/kops && \
     chmod +x /usr/local/bin/kops && \
@@ -70,7 +73,8 @@ RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
     && rm -rf /tmp/* \
     && curl -L ${LANDSCAPER_URL} | tar zxv -C /tmp \
     && cp /tmp/landscaper /bin/landscaper \
-    && rm -rf /tmp/*
+    && rm -rf /tmp/* \
+    && curl https://glide.sh/get | sh
 
 ADD bootstrap.sh /
 
