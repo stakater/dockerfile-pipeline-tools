@@ -5,8 +5,6 @@ COPY --from=docker /usr/local/bin/docker /usr/local/bin/
 
 MAINTAINER Stakater <stakater@gmail.com>
 
-
-
 # Install ansible, boto, aws-cli, and some handy tools
 RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
     apk --update add sudo                                         && \
