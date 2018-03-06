@@ -45,7 +45,7 @@ RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
 
 # Install kops, kubectl, and terraform
 RUN mkdir -p /aws && \
-    apk -Uuv add git bash openssh groff less python py-pip curl jq unzip && \
+    apk -Uuv add git bash wget openssh groff less python py-pip curl jq unzip && \
     curl -LO --show-error https://github.com/kubernetes/kops/releases/download/1.8.1/kops-linux-amd64 && \
     mv kops-linux-amd64 /usr/local/bin/kops && \
     chmod +x /usr/local/bin/kops && \
@@ -74,7 +74,10 @@ RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
     && curl -L ${LANDSCAPER_URL} | tar zxv -C /tmp \
     && cp /tmp/landscaper /bin/landscaper \
     && rm -rf /tmp/* \
-    && curl https://glide.sh/get | sh
+    && curl https://glide.sh/get | sh \
+    && wget https://github.com/jenkins-x/jx-release-version/releases/download/v1.0.9/jx-release-version-linux \
+    && chmod +x jx-release-version-linux \
+    && cp jx-release-version-linux /bin/jx-release-version
 
 ADD bootstrap.sh /
 
