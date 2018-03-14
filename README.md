@@ -26,10 +26,10 @@ This repo is part of a parent project to achieve the ability of possibility of c
 * groff
 * less
 * python
-* py-pip
 * curl
 * jq
 * unzip
+* make
 
 ##### PIP packages
 

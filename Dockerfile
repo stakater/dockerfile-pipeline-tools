@@ -10,11 +10,11 @@ RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
     apk --update add sudo                                         && \
     \
     \
-    echo "===> Adding Python runtime..."  && \
-    apk --update add python py-pip openssl ca-certificates    && \
+    echo "===> Adding Python runtime and make..."  && \
+    apk --update add python py-pip openssl ca-certificates make && \
     apk --update add --virtual build-dependencies \
-                python-dev libffi-dev openssl-dev build-base  && \
-    pip install --upgrade pip cffi                            && \
+                python-dev libffi-dev openssl-dev build-base    && \
+    pip install --upgrade pip cffi                              && \
     \
     \
     echo "===> Installing Ansible..."  && \
