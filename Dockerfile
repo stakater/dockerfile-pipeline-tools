@@ -56,7 +56,6 @@ RUN mkdir -p /aws && \
     unzip terraform_0.11.1_linux_amd64.zip && \
     mv terraform /usr/local/bin/ && \
     rm terraform_0.11.1_linux_amd64.zip && \
-    apk --purge -v del py-pip && \
     rm /var/cache/apk/*
 
 # Install helm, and landscaper
