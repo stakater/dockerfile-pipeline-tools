@@ -45,7 +45,7 @@ RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
 
 # Install kops, kubectl, and terraform
 RUN mkdir -p /aws && \
-    apk -Uuv add git bash wget openssh groff less python py-pip curl jq unzip && \
+    apk -Uuv add git bash wget openssh groff less python py-pip curl jq unzip nodejs=8.9.3-r0 && \
     curl -LO --show-error https://github.com/kubernetes/kops/releases/download/1.8.1/kops-linux-amd64 && \
     mv kops-linux-amd64 /usr/local/bin/kops && \
     chmod +x /usr/local/bin/kops && \

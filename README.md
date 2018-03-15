@@ -30,6 +30,7 @@ This repo is part of a parent project to achieve the ability of possibility of c
 * jq
 * unzip
 * make
+* nodejs 8.9.3
 
 ##### PIP packages
 
