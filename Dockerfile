@@ -76,7 +76,7 @@ RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
     && curl https://glide.sh/get | sh \
     && wget https://github.com/jenkins-x/jx-release-version/releases/download/v1.0.9/jx-release-version-linux \
     && chmod +x jx-release-version-linux \
-    && cp jx-release-version-linux /bin/jx-release-version 
+    && cp jx-release-version-linux /bin/jx-release-version
 
 ADD bootstrap.sh /
 
