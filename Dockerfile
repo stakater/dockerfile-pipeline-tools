@@ -5,13 +5,14 @@ COPY --from=docker /usr/local/bin/docker /usr/local/bin/
 
 MAINTAINER Stakater <stakater@gmail.com>
 
+# Update apk repository list in separate layer 
+# so that install layer does not run everytime
+RUN apk update
+
 # Install ansible, boto, aws-cli, and some handy tools
-RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
-    apk --update add sudo                                         && \
+RUN echo "===> Installing Utilities from apk ..."  && \
+    apk -v --update --progress add sudo git bash wget openssh groff less python py-pip curl jq unzip nodejs=8.9.3-r0 python py-pip openssl ca-certificates make sshpass openssh-client rsync && \
     \
-    \
-    echo "===> Adding Python runtime and make..."  && \
-    apk --update add python py-pip openssl ca-certificates make && \
     apk --update add --virtual build-dependencies \
                 python-dev libffi-dev openssl-dev build-base    && \
     pip install --upgrade pip cffi                              && \
@@ -31,7 +32,6 @@ RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
     \
     echo "===> Installing handy tools (not absolutely required)..."  && \
     pip install --upgrade pywinrm                  && \
-    apk --update add sshpass openssh-client rsync  && \
     \
     \
     echo "===> Removing package list..."  && \
@@ -43,9 +43,16 @@ RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
     mkdir -p /etc/ansible                        && \
     echo 'localhost' > /etc/ansible/hosts
 
+# Install gotpl
+ARG GOTPL_VERSION=0.1.5
+ARG GOTPL_URL=https://github.com/wodby/gotpl/releases/download/${GOTPL_VERSION}/gotpl-linux-amd64-${GOTPL_VERSION}.tar.gz
+RUN mkdir -p /tmp/gotpl/ && \
+    wget ${GOTPL_URL} -O /tmp/gotpl/gotpl.tar.gz && \
+    tar -xzvf /tmp/gotpl/gotpl.tar.gz -C /tmp/gotpl/ && \
+    mv /tmp/gotpl/gotpl /usr/local/bin/gotplenv
+
 # Install kops, kubectl, and terraform
 RUN mkdir -p /aws && \
-    apk -Uuv add git bash wget openssh groff less python py-pip curl jq unzip nodejs=8.9.3-r0 && \
     curl -LO --show-error https://github.com/kubernetes/kops/releases/download/1.8.1/kops-linux-amd64 && \
     mv kops-linux-amd64 /usr/local/bin/kops && \
     chmod +x /usr/local/bin/kops && \
@@ -55,8 +62,7 @@ RUN mkdir -p /aws && \
     wget https://releases.hashicorp.com/terraform/0.11.1/terraform_0.11.1_linux_amd64.zip && \
     unzip terraform_0.11.1_linux_amd64.zip && \
     mv terraform /usr/local/bin/ && \
-    rm terraform_0.11.1_linux_amd64.zip && \
-    rm /var/cache/apk/*
+    rm terraform_0.11.1_linux_amd64.zip
 
 # Install helm, and landscaper
 ARG HELM_VERSION=v2.7.2
