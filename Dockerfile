@@ -45,7 +45,7 @@ RUN echo "===> Installing Utilities from apk ..."  && \
 
 # Install gotpl
 ARG GOTPL_VERSION=0.1.5
-ARG GOTPL_URL=https://github.com/wodby/gotpl/releases/download/${GOTPL_VERSION}/gotpl-linux-amd64-${GOTPL_VERSION}.tar.gz
+ARG GOTPL_URL=https://github.com/wodby/gotpl/releases/download/${GOTPL_VERSION}/gotpl-alpine-linux-amd64-${GOTPL_VERSION}.tar.gz
 RUN mkdir -p /tmp/gotpl/ && \
     wget ${GOTPL_URL} -O /tmp/gotpl/gotpl.tar.gz && \
     tar -xzvf /tmp/gotpl/gotpl.tar.gz -C /tmp/gotpl/ && \
