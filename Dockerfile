@@ -11,7 +11,7 @@ RUN apk update
 
 # Install ansible, boto, aws-cli, and some handy tools
 RUN echo "===> Installing Utilities from apk ..."  && \
-    apk -v --update --progress add sudo git bash wget openssh groff less python py-pip curl jq unzip nodejs=8.9.3-r0 python py-pip openssl ca-certificates make sshpass openssh-client rsync && \
+    apk -v --update --progress add sudo git bash wget openssh groff less python py-pip curl jq unzip nodejs=8.9.3-r1 python py-pip openssl ca-certificates make sshpass openssh-client rsync && \
     \
     apk --update add --virtual build-dependencies \
                 python-dev libffi-dev openssl-dev build-base    && \
@@ -80,9 +80,12 @@ RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
     && cp /tmp/landscaper /bin/landscaper \
     && rm -rf /tmp/* \
     && curl https://glide.sh/get | sh \
-    && wget https://github.com/jenkins-x/jx-release-version/releases/download/v1.0.9/jx-release-version-linux \
-    && chmod +x jx-release-version-linux \
-    && mv jx-release-version-linux /bin/jx-release-version
+    && wget https://github.com/stakater/jx-release-version/releases/download/1.1.0/jx-release-version_v1.1.0_Linux_x86_64.tar.gz \
+    && tar -xzvf jx-release-version_v1.1.0_Linux_x86_64.tar.gz -C /tmp \
+    && cd /tmp \
+    && chmod +x jx-release-version \
+    && mv jx-release-version /bin/jx-release-version \
+    && rm -rf /tmp/*
 
 ADD bootstrap.sh /
 
