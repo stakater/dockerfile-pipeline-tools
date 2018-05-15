@@ -89,4 +89,6 @@ RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
 
 ADD bootstrap.sh /
 
+ADD binaries/* /usr/local/bin/
+
 ENTRYPOINT ["/bootstrap.sh"]
