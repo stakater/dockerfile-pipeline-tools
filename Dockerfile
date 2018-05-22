@@ -1,4 +1,4 @@
-FROM docker:17.10 as docker
+FROM docker:17.09.1-ce as docker
 FROM golang:1.9.3-alpine3.7
 
 COPY --from=docker /usr/local/bin/docker /usr/local/bin/
