@@ -14,7 +14,7 @@ ENV DOCKER_API_VERSION=1.32
 
 # Install ansible, boto, aws-cli, and some handy tools
 RUN echo "===> Installing Utilities from apk ..."  && \
-    apk -v --update --progress add sudo git bash wget openssh groff less python py-pip curl jq unzip nodejs=8.9.3-r1 coreutils python py-pip openssl ca-certificates make sshpass openssh-client rsync && \
+    apk -v --update --progress add sudo git bash wget openssh groff less python py-pip curl jq unzip nodejs=8.9.3-r1 coreutils python py-pip openssl ca-certificates make sshpass openssh-client rsync gnupg && \
     \
     apk --update add --virtual build-dependencies \
                 python-dev libffi-dev openssl-dev build-base   && \
