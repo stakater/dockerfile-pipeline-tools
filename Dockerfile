@@ -5,7 +5,7 @@ COPY --from=docker /usr/local/bin/docker /usr/local/bin/
 
 MAINTAINER Stakater <stakater@gmail.com>
 
-# Update apk repository list in separate layer 
+# Update apk repository list in separate layer
 # so that install layer does not run everytime
 RUN apk update
 
@@ -89,6 +89,16 @@ RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
     && chmod +x jx-release-version \
     && mv jx-release-version /bin/jx-release-version \
     && rm -rf /tmp/*
+
+ARG GORELEASER_VERSION=v0.79.0
+ARG GORELEASER_FILENAME=goreleaser_Linux_x86_64.tar.gz
+ARG GORELEASER_URL=https://github.com/goreleaser/goreleaser/releases/download/${GORELEASER_VERSION}/${GORELEASER_FILENAME}
+
+RUN curl -L ${GORELEASER_URL} | tar zxv -C /tmp \
+  && cd /tmp \
+  && chmod +x goreleaser \
+  && mv /tmp/goreleaser /bin/goreleaser \
+  && rm -rf /tmp/*
 
 ADD bootstrap.sh /
 
