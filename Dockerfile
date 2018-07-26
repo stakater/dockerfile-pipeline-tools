@@ -56,7 +56,7 @@ RUN mkdir -p /tmp/gotpl/ && \
 
 # Install kops, kubectl, and terraform
 RUN mkdir -p /aws && \
-    curl -LO --show-error https://github.com/kubernetes/kops/releases/download/1.8.1/kops-linux-amd64 && \
+    curl -LO --show-error https://github.com/kubernetes/kops/releases/download/1.9.2/kops-linux-amd64 && \
     mv kops-linux-amd64 /usr/local/bin/kops && \
     chmod +x /usr/local/bin/kops && \
     curl -LO --show-error https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl && \
