@@ -1,5 +1,18 @@
 FROM docker:17.09.1-ce as docker
+# Build operator-sdk
+FROM stakater/go-dep:1.9.3 as operator-sdk-builder
+
+RUN mkdir -p $GOPATH/src/github.com/operator-framework && \
+    cd $GOPATH/src/github.com/operator-framework && \
+    git clone https://github.com/operator-framework/operator-sdk && \
+    cd operator-sdk && \
+    git checkout master && \
+    make dep && \
+    make install
+
 FROM golang:1.9.3-alpine3.7
+
+COPY --from=operator-sdk-builder /go/bin/operator-sdk /usr/local/bin
 
 COPY --from=docker /usr/local/bin/docker /usr/local/bin/
 
