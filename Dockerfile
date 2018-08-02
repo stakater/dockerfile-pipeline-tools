@@ -88,7 +88,7 @@ RUN curl -L ${HELM_URL} | tar zxv -C /tmp \
     && cd /tmp \
     && chmod +x jx-release-version \
     && mv jx-release-version /bin/jx-release-version \
-    && rm -rf /tmp/*
+    && rm -rf /tmp/* 
 
 ARG GORELEASER_VERSION=v0.79.0
 ARG GORELEASER_FILENAME=goreleaser_Linux_x86_64.tar.gz
@@ -99,6 +99,18 @@ RUN curl -L ${GORELEASER_URL} | tar zxv -C /tmp \
   && chmod +x goreleaser \
   && mv /tmp/goreleaser /bin/goreleaser \
   && rm -rf /tmp/*
+
+ARG GOLANGCI_VERSION=v1.9.3
+ARG GOLANGCI_URL=https://install.goreleaser.com/github.com/golangci/golangci-lint.sh
+
+RUN curl -sfL ${GOLANGCI_URL} | bash -s -- -b /usr/local/bin ${GOLANGCI_VERSION}
+
+ARG DEP_VERSION=v0.5.0
+ARG DEP_URL=https://github.com/golang/dep/releases/download/${DEP_VERSION}/dep-linux-386
+
+RUN wget ${DEP_URL} && \
+    mv dep-linux-386 /usr/local/bin/dep && \
+    chmod +x /usr/local/bin/dep
 
 ADD bootstrap.sh /
 
