@@ -49,6 +49,7 @@ This repo is part of a parent project to achieve the ability of possibility of c
 * http://storage.googleapis.com/kubernetes-helm/helm-v2.7.2-linux-amd64.tar.gz
 * https://github.com/Eneco/landscaper/releases/download/1.0.12/landscaper-1.0.12-linux-amd64.tar.gz
 * https://github.com/wodby/gotpl
+* https://install.goreleaser.com/github.com/golangci/golangci-lint.sh
 
 ##### Infrastructure
 
