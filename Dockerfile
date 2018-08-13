@@ -39,7 +39,7 @@ RUN echo "===> Installing Utilities from apk ..."  && \
     \
     \
     echo "===> Installing Boto..."  && \
-    pip install boto                && \
+    pip install boto3                && \
     \
     \
     echo "===> Installing Aws-Cli..."  && \
