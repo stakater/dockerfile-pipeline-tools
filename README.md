@@ -45,7 +45,7 @@ This repo is part of a parent project to achieve the ability of possibility of c
 
 * https://github.com/kubernetes/kops/releases/download/1.8.1/kops-linux-amd64
 * https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl
-* https://releases.hashicorp.com/terraform/0.11.1/terraform_0.11.1_linux_amd64.zip
+* https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
 * http://storage.googleapis.com/kubernetes-helm/helm-v2.7.2-linux-amd64.tar.gz
 * https://github.com/Eneco/landscaper/releases/download/1.0.12/landscaper-1.0.12-linux-amd64.tar.gz
 * https://github.com/wodby/gotpl

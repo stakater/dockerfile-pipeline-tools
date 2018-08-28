@@ -75,10 +75,10 @@ RUN mkdir -p /aws && \
     curl -LO --show-error https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl && \
     mv kubectl /usr/local/bin/kubectl && \
     chmod +x /usr/local/bin/kubectl && \
-    wget https://releases.hashicorp.com/terraform/0.11.1/terraform_0.11.1_linux_amd64.zip && \
-    unzip terraform_0.11.1_linux_amd64.zip && \
+    wget https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip && \
+    unzip terraform_0.11.8_linux_amd64.zip && \
     mv terraform /usr/local/bin/ && \
-    rm terraform_0.11.1_linux_amd64.zip
+    rm terraform_0.11.8_linux_amd64.zip
 
 # Install helm, and landscaper
 ARG HELM_VERSION=v2.7.2
