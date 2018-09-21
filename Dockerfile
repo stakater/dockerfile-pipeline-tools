@@ -10,7 +10,7 @@ RUN mkdir -p $GOPATH/src/github.com/operator-framework && \
     make dep && \
     make install
 
-FROM golang:1.9.3-alpine3.7
+FROM golang:1.11.0-alpine3.8
 
 COPY --from=operator-sdk-builder /go/bin/operator-sdk /usr/local/bin
 
@@ -27,7 +27,7 @@ ENV DOCKER_API_VERSION=1.32
 
 # Install ansible, boto, aws-cli, and some handy tools
 RUN echo "===> Installing Utilities from apk ..."  && \
-    apk -v --update --progress add sudo git bash wget openssh groff less python py-pip curl jq unzip nodejs=8.12.0-r0 coreutils python py-pip openssl ca-certificates make sshpass openssh-client rsync gnupg && \
+    apk -v --update --progress add sudo git bash wget openssh groff less python py-pip curl jq unzip nodejs=8.11.4-r0 coreutils python py-pip openssl ca-certificates make sshpass openssh-client rsync gnupg && \
     \
     apk --update add --virtual build-dependencies \
                 python-dev libffi-dev openssl-dev build-base   && \
