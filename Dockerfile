@@ -46,6 +46,10 @@ RUN echo "===> Installing Utilities from apk ..."  && \
     pip install awscli                && \
     \
     \
+    echo "===> Installing Awsudo..."  && \
+    pip install git+https://github.com/makethunder/awsudo.git  && \
+    \
+    \
     echo "===> Installing handy tools (not absolutely required)..."  && \
     pip install --upgrade pywinrm                  && \
     \
