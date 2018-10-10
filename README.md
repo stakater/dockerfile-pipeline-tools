@@ -1,3 +1,5 @@
+# This repo has been archived and moved to [stakater-docker organization](https://github.com/stakater-docker/pipeline-tools/)
+
 ### 1. Introduction
 This docker image contains all the tools required for pipelines we use in stakater.
 
